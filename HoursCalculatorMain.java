@@ -10,6 +10,6 @@ public class HoursCalculatorMain
 	startDisplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	startDisplay.setSize(450,700);
 	startDisplay.setLocationRelativeTo(null);
-	startMain.setVisible(true);
+	startDisplay.setVisible(true);
 	}
 }
