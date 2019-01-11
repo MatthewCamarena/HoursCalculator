@@ -14,7 +14,8 @@ public class HCDisplay extends JFrame
 	double overTime, regTime, doubleTime;
 
 	// LABELS 
-	JLabel JLWelcome, JLDash1, JLDash2, JLDash3, JLDash4;
+	JLabel JLDash1, JLDash2, JLDash3, JLDash4;
+	JLabel JLClockSystem;
 	JLabel JLIn1, JLIn2, JLIn3, JLIn4, JLIn5, JLIn6, JLIn7;
 	JLabel JLOut1, JLOut2, JLOut3, JLOut4, JLOut5, JLOut6, JLOut7;
 	JLabel JLMonday, JLTuesday, JLWednesday, JLThursday, JLFriday, JLSaturday, JLSunday;
@@ -34,6 +35,10 @@ public class HCDisplay extends JFrame
 	//JRadioButton
 	JRadioButton JRBbreaks[];
 
+	//JRadioButtons for switching between clock systems
+	JRadioButton twentyfourButton = new JRadioButton("24-hr");
+	JRadioButton twelveButton = new JRadioButton("12-hr");
+
 	public HCDisplay()
 	{
 
@@ -42,9 +47,10 @@ public class HCDisplay extends JFrame
 	super("Hours Calculator");
 	try { 
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-} catch (Exception e) {
+	} 
+	catch (Exception e) {
     e.printStackTrace();
-}
+	}
 	layout = new JPanel(new BorderLayout());
 	nPanel = new JPanel(new FlowLayout());
 	cPanel = new JPanel(new FlowLayout());
@@ -59,6 +65,11 @@ public class HCDisplay extends JFrame
 	{
 		JRBbreaks[i] = new JRadioButton();
 	}
+
+	// Creation of clock system group
+	ButtonGroup clockSystem = new ButtonGroup();
+	clockSystem.add(twentyfourButton);
+	clockSystem.add(twelveButton);
 
 	//Creation of textboxes
 	JTIn1 = new JTextField(11);
@@ -117,7 +128,8 @@ public class HCDisplay extends JFrame
 	JTOut7.setText("0");
 	
 	// Naming
-	JLWelcome = new JLabel("Welcome");
+	JLClockSystem = new JLabel("Clock system:	");
+
 	JLIn1 = new JLabel("In");
 	JLOut1 = new JLabel("Out");
 
@@ -163,7 +175,9 @@ public class HCDisplay extends JFrame
 	//working with the layout & adding things
 
 	// Placing objects onto the workspace
-	nPanel.add(JLWelcome);
+	nPanel.add(JLClockSystem);
+	nPanel.add(twentyfourButton);
+	nPanel.add(twelveButton);
 	//Monday
 	cPanel.add(JLMonday);
 	cPanel.add(JLIn1);
