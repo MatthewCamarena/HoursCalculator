@@ -71,12 +71,12 @@ public class HCDisplay extends JFrame
 		JRBbreaks[i] = new JRadioButton();
 	}
 
-	ampmBoxIn = new JComboBox[7]; // note: unsafe operation
+	ampmBoxIn = new JComboBox[7];  // note: unsafe operation
 	ampmBoxOut = new JComboBox[7];
 
 	for (int i = 0; i < 7; i++) {
 		ampmBoxIn[i] = new JComboBox<>(ampmStrings);
-		ampmBoxIn[i].setEnabled(false);
+		ampmBoxIn[i].setEnabled(false);  // set JComboBoxes to be initially disabled due to 24-hr default mode
 		ampmBoxOut[i] = new JComboBox<>(ampmStrings);
 		ampmBoxOut[i].setEnabled(false);
 	}
@@ -170,7 +170,7 @@ public class HCDisplay extends JFrame
 	JLOvertime = new JLabel  ("Overtime Hours:    ");
 	JLDoubletime = new JLabel("Doubletime Hours: ");
 
-	JLMonday = new JLabel("------------------------------Monday-------------------------------");
+	JLMonday = new JLabel("------------------------------Monday-------------------------------");  // added 12 extra '-' to accommodate for spaghetti code
 	JLTuesday = new JLabel("------------------------------Tuesday-------------------------------");
 	JLWednesday = new JLabel("-----------------------------Wednesday------------------------------");
 	JLThursday = new JLabel("-----------------------------Thursday-------------------------------");
@@ -192,7 +192,7 @@ public class HCDisplay extends JFrame
 	// Placing objects onto the workspace
 	nPanel.add(JLClockSystem);
 	nPanel.add(twentyfourButton);
-	twentyfourButton.setSelected(true);
+	twentyfourButton.setSelected(true);  // 24-hr mode enabled by default
 	nPanel.add(twelveButton);
 	//Monday
 	cPanel.add(JLMonday);
@@ -208,7 +208,7 @@ public class HCDisplay extends JFrame
 	cPanel.add(JLIn2);
 	cPanel.add(JTIn2);
 	cPanel.add(ampmBoxIn[1]);
-	//cPanel.add(new JLabel("                   "));
+	//cPanel.add(new JLabel("                   "));  // graphic size of JComboBox for reference
 	cPanel.add(JLOut2);
 	cPanel.add(JTOut2);
 	cPanel.add(ampmBoxOut[1]);
@@ -281,7 +281,7 @@ public class HCDisplay extends JFrame
 	JBCalculate.addActionListener(calculatePressed);
 	ALReset resetPressed = new ALReset();
 	JBReset.addActionListener(resetPressed);
-	twelveButton.addActionListener(resetPressed);
+	twelveButton.addActionListener(resetPressed);  // resets when changing between clock systems
 	twentyfourButton.addActionListener(resetPressed);
 	exitHandler exPressed = new exitHandler();
 	JBExit.addActionListener(exPressed);
@@ -341,7 +341,7 @@ public class HCDisplay extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			for (int i = 0; i < 7; i++) {
-				ampmBoxIn[i].setEnabled(twelveButton.isSelected());
+				ampmBoxIn[i].setEnabled(twelveButton.isSelected());  // enabled only when 12-hr is selected
 				ampmBoxOut[i].setEnabled(twelveButton.isSelected());
 			}
 
@@ -385,12 +385,14 @@ public class HCDisplay extends JFrame
 		iFirst = Double.parseDouble(first);
 		iSecond = Double.parseDouble(second);
 	
+		// check if PM is on for in or out boxes
 		if (pmOnFirst && iFirst < 12) {
 			iFirst += 12;
 		}
 		if (pmOnSecond && iSecond < 12) {
 			iSecond += 12;
 		}
+
 		result = iSecond - iFirst;
 		if(JRBbreaks[currNum].isSelected())
 		{
@@ -408,8 +410,6 @@ public class HCDisplay extends JFrame
 			result = 8;
 
 		}
-		
-		
 
 		return result;
 	}
