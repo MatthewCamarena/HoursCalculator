@@ -40,7 +40,7 @@ public class HCDisplay extends JFrame
 	JRadioButton twelveButton = new JRadioButton("12-hr");
 
 	//Initialize strings for uneditable combo box to distinguish between AM/PM
-	String[] ampmStrings = {"N/A", "AM", "PM"};
+	String[] ampmStrings = {"AM", "PM"};
 	JComboBox<String>[] ampmBoxIn;
 	JComboBox<String>[] ampmBoxOut;
 
@@ -76,7 +76,9 @@ public class HCDisplay extends JFrame
 
 	for (int i = 0; i < 7; i++) {
 		ampmBoxIn[i] = new JComboBox<>(ampmStrings);
+		ampmBoxIn[i].setEnabled(false);
 		ampmBoxOut[i] = new JComboBox<>(ampmStrings);
+		ampmBoxOut[i].setEnabled(false);
 	}
 
 	// Creation of clock system group
@@ -339,8 +341,8 @@ public class HCDisplay extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			for (int i = 0; i < 7; i++) {
-				ampmBoxIn[i].setSelectedIndex(0);
-				ampmBoxOut[i].setSelectedIndex(0);
+				ampmBoxIn[i].setEnabled(twelveButton.isSelected());
+				ampmBoxOut[i].setEnabled(twelveButton.isSelected());
 			}
 
 			JTIn1.setText("0");
