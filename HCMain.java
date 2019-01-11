@@ -9,7 +9,7 @@ public class HCMain
 	HCDisplay startMain = new HCDisplay();
 
 	startMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	startMain.setSize(450,700);
+	startMain.setSize(550,700);
 	startMain.setLocationRelativeTo(null);
 	startMain.setVisible(true);
 
