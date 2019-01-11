@@ -1,14 +1,18 @@
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.*;
-import java.lang.Math;
+import javax.swing.JFrame;
 
-public class HoursCalculatorDisplay extends JFrame
+public class HCMain
 {
-	public HoursCalculatorDisplay()
+	
+	public static void main(String[] args)
 	{
-	super("Hours Calculator");
+
+	HCDisplay startMain = new HCDisplay();
+
+	startMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	startMain.setSize(450,700);
+	startMain.setLocationRelativeTo(null);
+	startMain.setVisible(true);
+
 	}
+
 }
