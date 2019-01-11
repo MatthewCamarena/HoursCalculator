@@ -39,6 +39,11 @@ public class HCDisplay extends JFrame
 	JRadioButton twentyfourButton = new JRadioButton("24-hr");
 	JRadioButton twelveButton = new JRadioButton("12-hr");
 
+	//Initialize strings for uneditable combo box to distinguish between AM/PM
+	String[] ampmStrings = {"N/A", "AM", "PM"};
+	JComboBox<String>[] ampmBoxIn;
+	JComboBox<String>[] ampmBoxOut;
+
 	public HCDisplay()
 	{
 
@@ -64,6 +69,14 @@ public class HCDisplay extends JFrame
 	for (int i = 0; i < 7; i++)
 	{
 		JRBbreaks[i] = new JRadioButton();
+	}
+
+	ampmBoxIn = new JComboBox[7]; // note: unsafe operation
+	ampmBoxOut = new JComboBox[7];
+
+	for (int i = 0; i < 7; i++) {
+		ampmBoxIn[i] = new JComboBox<>(ampmStrings);
+		ampmBoxOut[i] = new JComboBox<>(ampmStrings);
 	}
 
 	// Creation of clock system group
@@ -155,17 +168,17 @@ public class HCDisplay extends JFrame
 	JLOvertime = new JLabel  ("Overtime Hours:    ");
 	JLDoubletime = new JLabel("Doubletime Hours: ");
 
-	JLMonday = new JLabel("------------------------Monday-------------------------");
-	JLTuesday = new JLabel("------------------------Tuesday-------------------------");
-	JLWednesday = new JLabel("-----------------------Wednesday------------------------");
-	JLThursday = new JLabel("-----------------------Thursday-------------------------");
-	JLFriday = new JLabel("-------------------------Friday-------------------------");
-	JLSaturday = new JLabel("------------------------Saturday-------------------------");
-	JLSunday = new JLabel("-------------------------Sunday-------------------------");
-	JLDash1 = new JLabel("--------------------------------------------------------");
-	JLDash2 = new JLabel("--------------------------------------------------");
-	JLDash3 = new JLabel("--------------------------------------------------");
-	JLDash4 = new JLabel("--------------------------------------------------");
+	JLMonday = new JLabel("------------------------------Monday-------------------------------");
+	JLTuesday = new JLabel("------------------------------Tuesday-------------------------------");
+	JLWednesday = new JLabel("-----------------------------Wednesday------------------------------");
+	JLThursday = new JLabel("-----------------------------Thursday-------------------------------");
+	JLFriday = new JLabel("-------------------------------Friday-------------------------------");
+	JLSaturday = new JLabel("------------------------------Saturday-------------------------------");
+	JLSunday = new JLabel("-------------------------------Sunday-------------------------------");
+	JLDash1 = new JLabel("--------------------------------------------------------------------");
+	JLDash2 = new JLabel("--------------------------------------------------------------");
+	JLDash3 = new JLabel("--------------------------------------------------------------");
+	JLDash4 = new JLabel("--------------------------------------------------------------");
 
 	//Buttons
 	JBCalculate = new JButton("Calculate");
@@ -177,55 +190,72 @@ public class HCDisplay extends JFrame
 	// Placing objects onto the workspace
 	nPanel.add(JLClockSystem);
 	nPanel.add(twentyfourButton);
+	twentyfourButton.setSelected(true);
 	nPanel.add(twelveButton);
 	//Monday
 	cPanel.add(JLMonday);
 	cPanel.add(JLIn1);
 	cPanel.add(JTIn1);
+	cPanel.add(ampmBoxIn[0]);
 	cPanel.add(JLOut1);
 	cPanel.add(JTOut1);
+	cPanel.add(ampmBoxOut[0]);
 	cPanel.add(JRBbreaks[0]);
 	//Tuesday
 	cPanel.add(JLTuesday);
 	cPanel.add(JLIn2);
 	cPanel.add(JTIn2);
+	cPanel.add(ampmBoxIn[1]);
+	//cPanel.add(new JLabel("                   "));
 	cPanel.add(JLOut2);
 	cPanel.add(JTOut2);
+	cPanel.add(ampmBoxOut[1]);
+	//cPanel.add(new JLabel("                   "));
 	cPanel.add(JRBbreaks[1]);
 	//Wednesday
 	cPanel.add(JLWednesday);
 	cPanel.add(JLIn3);
 	cPanel.add(JTIn3);
+	cPanel.add(ampmBoxIn[2]);
 	cPanel.add(JLOut3);
 	cPanel.add(JTOut3);
+	cPanel.add(ampmBoxOut[2]);
 	cPanel.add(JRBbreaks[2]);
 	//Thursday
 	cPanel.add(JLThursday);
 	cPanel.add(JLIn4);
 	cPanel.add(JTIn4);
+	cPanel.add(ampmBoxIn[3]);
 	cPanel.add(JLOut4);
 	cPanel.add(JTOut4);
+	cPanel.add(ampmBoxOut[3]);
 	cPanel.add(JRBbreaks[3]);
 	//Friday
 	cPanel.add(JLFriday);
 	cPanel.add(JLIn5);
 	cPanel.add(JTIn5);
+	cPanel.add(ampmBoxIn[4]);
 	cPanel.add(JLOut5);
 	cPanel.add(JTOut5);
+	cPanel.add(ampmBoxOut[4]);
 	cPanel.add(JRBbreaks[4]);
 	//Saturday
 	cPanel.add(JLSaturday);
 	cPanel.add(JLIn6);
 	cPanel.add(JTIn6);
+	cPanel.add(ampmBoxIn[5]);
 	cPanel.add(JLOut6);
 	cPanel.add(JTOut6);
+	cPanel.add(ampmBoxOut[5]);
 	cPanel.add(JRBbreaks[5]);
 	//Sunday
 	cPanel.add(JLSunday);
 	cPanel.add(JLIn7);
 	cPanel.add(JTIn7);
+	cPanel.add(ampmBoxIn[6]);
 	cPanel.add(JLOut7);
 	cPanel.add(JTOut7);
+	cPanel.add(ampmBoxOut[6]);
 	cPanel.add(JRBbreaks[6]);
 	cPanel.add(JLDash1);
 
@@ -249,8 +279,12 @@ public class HCDisplay extends JFrame
 	JBCalculate.addActionListener(calculatePressed);
 	ALReset resetPressed = new ALReset();
 	JBReset.addActionListener(resetPressed);
+	twelveButton.addActionListener(resetPressed);
+	twentyfourButton.addActionListener(resetPressed);
 	exitHandler exPressed = new exitHandler();
 	JBExit.addActionListener(exPressed);
+
+
 
 	}
 
@@ -279,7 +313,8 @@ public class HCDisplay extends JFrame
 
 			for (int i = 0; i < 7 ; i++)
 			{
-				regTime += stringSubtraction(hoursIn[i], hoursOut[i], i);
+				regTime += stringSubtraction(hoursIn[i], ampmBoxIn[i].getSelectedItem().toString().equals("PM"),
+						ampmBoxOut[i].getSelectedItem().toString().equals("PM"),hoursOut[i], i);
 
 			}
 
@@ -303,6 +338,11 @@ public class HCDisplay extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			for (int i = 0; i < 7; i++) {
+				ampmBoxIn[i].setSelectedIndex(0);
+				ampmBoxOut[i].setSelectedIndex(0);
+			}
+
 			JTIn1.setText("0");
 			JTOut1.setText("0");
 
@@ -336,12 +376,19 @@ public class HCDisplay extends JFrame
 		}
 	}
 
-	public double stringSubtraction(String first, String second, int currNum)
+	public double stringSubtraction(String first, boolean pmOnFirst, boolean pmOnSecond, String second, int currNum)
 	{
 		double iFirst, iSecond, result;
 		result = 0;
 		iFirst = Double.parseDouble(first);
 		iSecond = Double.parseDouble(second);
+	
+		if (pmOnFirst && iFirst < 12) {
+			iFirst += 12;
+		}
+		if (pmOnSecond && iSecond < 12) {
+			iSecond += 12;
+		}
 		result = iSecond - iFirst;
 		if(JRBbreaks[currNum].isSelected())
 		{
